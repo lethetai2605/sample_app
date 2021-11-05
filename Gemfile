@@ -20,6 +20,7 @@ gem 'bootsnap',                   '1.7.2', require: false
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "rubocop", "~> 0.72.0", require: false
 gem "rubocop-rails", "~> 2.3.2", require: false
+gem 'bootstrap-sass', '3.4.1'
 
 group :development, :test do
   gem 'sqlite3', '1.4.2'
