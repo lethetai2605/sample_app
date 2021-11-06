@@ -22,6 +22,7 @@ gem "rubocop", "~> 0.72.0", require: false
 gem "rubocop-rails", "~> 2.3.2", require: false
 gem 'bootstrap-sass', '3.4.1'
 gem 'bcrypt', '3.1.13'
+gem 'gravatar_for', '~> 0.1.2'
 
 group :development, :test do
   gem 'sqlite3', '1.4.2'
