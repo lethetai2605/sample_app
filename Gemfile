@@ -23,6 +23,11 @@ gem "rubocop-rails", "~> 2.3.2", require: false
 gem 'bootstrap-sass', '3.4.1'
 gem 'bcrypt', '3.1.13'
 gem 'gravatar_for', '~> 0.1.2'
+gem 'faker', '2.11.0' #tao ng dung
+gem 'will_paginate', '3.3.0' #phan trang
+gem 'bootstrap-will_paginate', '1.0.0'
+
+
 
 group :development, :test do
   gem 'sqlite3', '1.4.2'
