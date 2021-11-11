@@ -26,8 +26,10 @@ gem 'gravatar_for', '~> 0.1.2'
 gem 'faker', '2.11.0' #tao ng dung
 gem 'will_paginate', '3.3.0' #phan trang
 gem 'bootstrap-will_paginate', '1.0.0'
-
-
+gem 'htmlbeautifier'
+gem 'active_storage_validations', '0.8.9'
+gem 'image_processing', '1.9.3'
+gem 'mini_magick', '4.9.5'
 
 group :development, :test do
   gem 'sqlite3', '1.4.2'
