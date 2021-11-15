@@ -17,5 +17,7 @@
 <%= f.submit "Log in", class: "btn btn-primary" %>
 <% end %>
 <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+<p><%= link_to "Sign in with GoogleOauth?", '/auth/google_oauth2' %></p>
+<p><%= link_to "Sign in with FaceBook", '/auth/facebook' %></p>
 </div>
 </div>

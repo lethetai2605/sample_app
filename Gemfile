@@ -31,6 +31,13 @@ gem 'active_storage_validations', '0.8.9'
 gem 'image_processing', '1.9.3'
 gem 'mini_magick', '4.9.5'
 
+gem 'dotenv-rails'
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection'
+gem 'omniauth-facebook'
+
+
 group :development, :test do
   gem 'sqlite3', '1.4.2'
   gem 'byebug',  '11.1.3', platforms: [:mri, :mingw, :x64_mingw]

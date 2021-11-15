@@ -29,4 +29,27 @@ class SessionsController < ApplicationController
     redirect_to root_url
   end
 
+  require 'pry'
+  def omniauth
+    # binding.pry
+    user = User.find_or_create_by(uid: request.env['omniauth.auth'][:uid], provider: request.env['omniauth.auth'][:provider]) do |u|
+      u.name = request.env['omniauth.auth'][:info][:first_name] + ' ' + request.env['omniauth.auth'][:info][:last_name]
+      u.email = request.env['omniauth.auth'][:info][:email]
+      u.password = SecureRandom.hex(15)
+      u.activated = true
+    end
+    log_in user #luu session
+    redirect_to root_path
+
+    # if params[:provider] == 'facebook'
+    # user = User.find_or_create_by(uid: request.env['omniauth.auth'][:uid], provider: request.env['omniauth.auth'][:provider]) do |u|
+    #   u.name = request.env['omniauth.auth'][:info][:first_name] + ' ' + request.env['omniauth.auth'][:info][:last_name]
+    #   u.email = request.env['omniauth.auth'][:info][:email]
+    #   u.password = SecureRandom.hex(15)
+    #   u.activated = true
+    #   end
+    # log_in user #luu session
+    # redirect_to root_path
+    # end
+  end
 end
