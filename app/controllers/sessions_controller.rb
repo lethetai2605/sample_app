@@ -29,7 +29,7 @@ class SessionsController < ApplicationController
     redirect_to root_url
   end
 
-  require 'pry'
+  # require 'pry'
   def omniauth
     # binding.pry
     user = User.find_or_create_by(uid: request.env['omniauth.auth'][:uid], provider: request.env['omniauth.auth'][:provider]) do |u|
