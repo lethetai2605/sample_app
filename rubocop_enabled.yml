@@ -44,19 +44,8 @@ Style/BeginBlock:
   Description: "Avoid the use of BEGIN blocks."
   Enabled: true
 
-Style/BlockComments:
-  Description: "Do not use block comments."
-  Enabled: true
-
 Metrics/BlockNesting:
   Description: "Avoid excessive block nesting"
-  Enabled: true
-
-Style/BlockDelimiters:
-  Description: >-
-                Avoid using {...} for multi-line blocks (multiline chaining is
-                always ugly).
-                Prefer {...} over do...end for single-line blocks.
   Enabled: true
 
 Style/BracesAroundHashParameters:
@@ -133,10 +122,6 @@ Layout/DotPosition:
   Description: "Checks the position of the dot in multi-line method calls."
   Enabled: true
 
-Style/DoubleNegation:
-  Description: "Checks for uses of double negation (!!)."
-  Enabled: true
-
 Style/EachWithObject:
   Description: "Prefer `each_with_object` over `inject` or `reduce`."
   Enabled: true
@@ -167,10 +152,6 @@ Layout/EmptyLinesAroundModuleBody:
 
 Style/EmptyLiteral:
   Description: "Prefer literals to Array.new/Hash.new/String.new."
-  Enabled: true
-
-Style/Encoding:
-  Description: "Use UTF-8 as the source file encoding."
   Enabled: true
 
 Style/EndBlock:
@@ -243,10 +224,6 @@ Layout/IndentFirstHashElement:
   Description: "Checks the indentation of the first key in a hash literal."
   Enabled: true
 
-Style/Lambda:
-  Description: "Use the new lambda literal syntax for single-line blocks."
-  Enabled: true
-
 Style/LambdaCall:
   Description: "Use lambda.call(...) instead of lambda.(...)."
   Enabled: true
@@ -281,10 +258,6 @@ Naming/MethodName:
 
 Style/ModuleFunction:
   Description: "Checks for usage of `extend self` in modules."
-  Enabled: true
-
-Style/MultilineBlockChain:
-  Description: "Avoid multi-line chains of blocks."
   Enabled: true
 
 Style/MultilineIfThen:
@@ -381,22 +354,6 @@ Style/RedundantReturn:
   Description: "Don't use return where it's not required."
   Enabled: true
 
-Style/RedundantSelf:
-  Description: "Don't use self where it's not needed."
-  Enabled: true
-
-Style/RegexpLiteral:
-  Description: >-
-                 Use %r for regular expressions matching more than
-                 `MaxSlashes` '/' characters.
-                 Use %r only for regular expressions matching more than
-                 `MaxSlashes` '/' character.
-  Enabled: true
-
-Style/RescueModifier:
-  Description: "Avoid using rescue in its modifier form."
-  Enabled: true
-
 Style/SelfAssignment:
   Description: "Checks for places where self-assignment shorthand should have been used."
   Enabled: true
@@ -429,10 +386,6 @@ Layout/SpaceAfterColon:
 
 Layout/SpaceAfterComma:
   Description: "Use spaces after commas."
-  Enabled: true
-
-Layout/SpaceAroundKeyword:
-  Description: "Use spaces after if/elsif/unless/while/until/case/when."
   Enabled: true
 
 Layout/SpaceAfterMethodName:
@@ -487,10 +440,6 @@ Layout/SpaceAroundOperators:
   Description: "Use spaces around operators."
   Enabled: true
 
-Layout/SpaceInsideHashLiteralBraces:
-  Description: "Use spaces inside hash literal braces - or don't."
-  Enabled: true
-
 Layout/SpaceInsideParens:
   Description: "No spaces after ( or before )."
   Enabled: true
@@ -511,18 +460,8 @@ Layout/TrailingBlankLines:
   Description: "Checks trailing blank lines and final newline."
   Enabled: true
 
-Style/TrailingCommaInArguments:
-  Description: 'Checks for trailing comma in argument lists.'
-  StyleGuide: '#no-trailing-params-comma'
-  Enabled: true
-
 Style/TrailingCommaInArrayLiteral:
-  Description: 'Checks for trailing comma in array literals.'
-  StyleGuide: '#no-trailing-array-commas'
-  Enabled: true
-
-Style/TrailingCommaInHashLiteral:
-  Description: 'Checks for trailing comma in hash literals.'
+  Description: "Checks for trailing comma in parameter lists and literals."
   Enabled: true
 
 Layout/TrailingWhitespace:
@@ -622,10 +561,6 @@ Lint/EmptyInterpolation:
   Description: "Checks for empty string interpolation."
   Enabled: true
 
-Layout/EndAlignment:
-  Description: "Align ends correctly."
-  Enabled: true
-
 Lint/EndInMethod:
   Description: "END blocks should not be placed inside method definitions."
   Enabled: true
@@ -640,6 +575,10 @@ Security/Eval:
 
 Lint/HandleExceptions:
   Description: "Don't suppress exception."
+  Enabled: true
+
+Lint/LiteralAsCondition:
+  Description: "Checks of literals used in conditions."
   Enabled: true
 
 Lint/LiteralInInterpolation:

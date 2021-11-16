@@ -1,43 +1,40 @@
-# This is rubocop configuration file for Sun-Asterisk's coding style. Enabling and disabling is configured
+# This is rubocop configuration file for Framgia's coding style. Enabling and disabling is configured
 # in separate files. This file adds all other parameters apart from Enabled.
 
-# Add this to load Rails extension for rubocop
-require: rubocop-rails
-
 # Put the following files into the same directory as this file.
+require: rubocop-performance
+
 inherit_from:
   - .rubocop_enabled.yml
   - .rubocop_disabled.yml
 
 # Common configuration.
-AllCops:
-  # Include gemspec and Rakefile
-  Include:
-    - 'app/**/*'
-    - 'lib/**/*'
-    - '**/*.gemspec'
-    - 'Gemfile'
-  Exclude:
-    - 'vendor/**/*'
-    - 'config/unicorn.rb'
-    - 'bin/*'
-    - 'db/**/*'
-    - 'spec/**/*'
-    - 'script/rails'
-    - 'config/**/*'
-    - 'app/views/**/*'
-    - 'app/assets/**/*'
-    - 'app/javascript/**/*'
-    - '.idea/**/*'
-    - '**/.DS_Store'
-    - '**/.keep'
+Rails:
+  Enabled: true
 
+AllCops:
+  Exclude:
+    - db/schema.rb
+    - config/deploy.rb
+    - config/application.rb
+    - config/initializers/custom_error.rb
+    - "**/config.ru"
+    - bin/*
+    - app/controllers/api/errors/base.rb
+  TargetRubyVersion: 2.5.1
 # Indent private/protected/public as deep as method definitions
 Layout/AccessModifierIndentation:
   EnforcedStyle: indent
   SupportedStyles:
     - outdent
     - indent
+
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - staging
+    - development
+    - test
 
 # Align the elements of a hash literal if they span more than one line.
 Layout/AlignHash:
@@ -123,12 +120,7 @@ Layout/AlignParameters:
     - with_fixed_indentation
 
 Metrics/BlockNesting:
-  Max: 3
-
-Metrics/AbcSize:
-  # The ABC size is a calculated magnitude, so this number can be a Fixnum or
-  # a Float.
-  Max: 20
+  Max: 4
 
 Style/BracesAroundHashParameters:
   EnforcedStyle: no_braces
@@ -288,10 +280,12 @@ Style/LambdaCall:
     - braces
 
 Metrics/LineLength:
-  Max: 80
+  Max: 100
   AllowURI: true
   Exclude:
     - config/routes.rb
+    - spec/controllers/api/**/*
+    - spec/support/**/*
 
 
 Style/Next:
@@ -366,11 +360,6 @@ Style/RedundantReturn:
   # When true allows code like `return x, y`.
   AllowMultipleReturnValues: false
 
-#Style/RegexpLiteral:
-#  # The maximum number of (escaped) slashes that a slash-delimited regexp is
-#  # allowed to have. If there are more slashes, a %r regexp shall be used.
-#  MaxSlashes: 0
-
 Style/Semicolon:
   # Allow ; to separate several expressions on the same line.
   AllowAsExpressionSeparator: false
@@ -381,7 +370,6 @@ Style/SignalException:
     - only_raise
     - only_fail
     - semantic
-
 
 Style/SingleLineBlockParams:
   Methods:
@@ -408,13 +396,19 @@ Layout/SpaceAroundEqualsInParameterDefault:
     - no_space
 
 Layout/SpaceBeforeBlockBraces:
+  EnforcedStyle: space
+  SupportedStyles:
+    - space
+    - no_space
+
+Layout/SpaceInsideArrayLiteralBrackets:
   EnforcedStyle: no_space
   SupportedStyles:
     - space
     - no_space
 
 Layout/SpaceInsideBlockBraces:
-  EnforcedStyle: no_space
+  EnforcedStyle: space
   SupportedStyles:
     - space
     - no_space
@@ -436,38 +430,10 @@ Layout/TrailingBlankLines:
     - final_newline
     - final_blank_line
 
-Style/TrailingCommaInArguments:
-  # If `comma`, the cop requires a comma after the last argument, but only for
-  # parenthesized method calls where each argument is on its own line.
-  # If `consistent_comma`, the cop requires a comma after the last argument,
-  # for all parenthesized method calls with arguments.
-  EnforcedStyleForMultiline: no_comma
-  SupportedStylesForMultiline:
-    - comma
-    - consistent_comma
-    - no_comma
-
 Style/TrailingCommaInArrayLiteral:
-  # If `comma`, the cop requires a comma after the last item in an array,
-  # but only when each item is on its own line.
-  # If `consistent_comma`, the cop requires a comma after the last item of all
-  # non-empty array literals.
+  # If EnforcedStyleForMultiline is comma, the cop allows a comma after the
+  # last item of a list, but only for lists where each item is on its own line.
   EnforcedStyleForMultiline: no_comma
-  SupportedStylesForMultiline:
-    - comma
-    - consistent_comma
-    - no_comma
-
-Style/TrailingCommaInHashLiteral:
-  # If `comma`, the cop requires a comma after the last item in a hash,
-  # but only when each item is on its own line.
-  # If `consistent_comma`, the cop requires a comma after the last item of all
-  # non-empty hash literals.
-  EnforcedStyleForMultiline: no_comma
-  SupportedStylesForMultiline:
-    - comma
-    - consistent_comma
-    - no_comma
 
 # TrivialAccessors doesn't require exact name matches and doesn't allow
 # predicated methods by default.
@@ -558,3 +524,12 @@ Rails/ScopeArgs:
 Rails/Validation:
   Include:
     - app/models/**/*.rb
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+Style/NumericPredicate:
+  EnforcedStyle: comparison
+
+Metrics/PerceivedComplexity:
+  Max: 13
