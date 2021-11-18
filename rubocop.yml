@@ -35,7 +35,6 @@ Rails/UnknownEnv:
     - staging
     - development
     - test
-
 # Align the elements of a hash literal if they span more than one line.
 Layout/AlignHash:
   # Alignment of entries using hash rocket as separator. Valid values are:
@@ -280,7 +279,7 @@ Style/LambdaCall:
     - braces
 
 Metrics/LineLength:
-  Max: 100
+  Max: 120
   AllowURI: true
   Exclude:
     - config/routes.rb

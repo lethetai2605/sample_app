@@ -1,4 +1,6 @@
+# migrate
 class CreateUsers < ActiveRecord::Migration[6.1]
+  # frozen_string_literal: true
   def change
     create_table :users do |t|
       t.string :name

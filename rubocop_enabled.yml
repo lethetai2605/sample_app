@@ -158,10 +158,6 @@ Style/EndBlock:
   Description: "Avoid the use of END blocks."
   Enabled: true
 
-Layout/EndOfLine:
-  Description: "Use Unix-style line endings."
-  Enabled: true
-
 Style/EvenOdd:
   Description: "Favor the use of Fixnum#even? && Fixnum#odd?"
   Enabled: true
@@ -547,6 +543,9 @@ Layout/DefEndAlignment:
 
 Lint/DeprecatedClassMethods:
   Description: "Check for deprecated class method calls."
+  Enabled: true
+
+Layout/EndOfLine:
   Enabled: true
 
 Lint/ElseLayout:

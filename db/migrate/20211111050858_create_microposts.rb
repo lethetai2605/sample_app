@@ -1,4 +1,6 @@
+# migrate
 class CreateMicroposts < ActiveRecord::Migration[6.1]
+  # frozen_string_literal: true
   def change
     create_table :microposts do |t|
       t.text :content
@@ -6,6 +8,6 @@ class CreateMicroposts < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
-    add_index :microposts, [:user_id, :created_at]
+    add_index :microposts, %i[user_id created_at]
   end
 end
