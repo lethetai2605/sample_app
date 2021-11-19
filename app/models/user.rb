@@ -36,6 +36,15 @@ class User < ApplicationRecord
     def new_token
       SecureRandom.urlsafe_base64
     end
+
+    def new_account(request, email)
+      firt_name = request.env['omniauth.auth'][:info][:first_name]
+      last_name = request.env['omniauth.auth'][:info][:last_name]
+      full_name = firt_name + ' ' + last_name
+      password = SecureRandom.hex(15)
+      @user = User.new(email: email, name: full_name, activated: true, password: password)
+      @user.save
+    end
   end
 
   def remember
