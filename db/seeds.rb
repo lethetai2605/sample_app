@@ -1,10 +1,13 @@
 # Create a main sample user.
+r1 = Role.create({ name: 'Admin', description: 'Full rights with users' })
+r2 = Role.create({ name: 'Regular', description: 'Limited rights' })
+
 User.create!(name: 'Example User',
              email: 'admin@admin.com',
              password: '123',
              password_confirmation: '123',
-             admin: true,
              activated: true,
+             role_id: r1.id,
              activated_at: Time.zone.now)
 
 # Generate a bunch of additional users.
@@ -17,6 +20,7 @@ User.create!(name: 'Example User',
                password: password,
                password_confirmation: password,
                activated: true,
+               role_id: r2.id,
                activated_at: Time.zone.now)
 end
 

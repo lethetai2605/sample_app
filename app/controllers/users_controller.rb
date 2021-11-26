@@ -3,8 +3,8 @@ class UsersController < ApplicationController
   # frozen_string_literal: true
   before_action :logged_in_user, only: %i[index edit update destroy]
   before_action :correct_user, only: %i[edit update]
-  before_action :admin_user, only: :destroy
-
+  # before_action :admin_user, only: :destroy
+  load_and_authorize_resource
   def index
     @users = User.where(activated: true).paginate(page: params[:page])
   end
@@ -16,11 +16,11 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new
+    # @user = User.new
   end
 
   def create
-    @user = User.new(user_params)
+    # @user = User.new(user_params)
     if @user.save
       @user.send_activation_email
       flash[:info] = 'Please check your email to activate your account.'
@@ -51,7 +51,8 @@ class UsersController < ApplicationController
 
   # Confirms a logged-in user
   def logged_in_user
-    return if logged_in?
+    # return if logged_in?
+    return if user_signed_in?
 
     store_location # neu chua login thi cung luu cai url dinh vao
     flash[:danger] = 'Please log in.'
@@ -70,9 +71,9 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
-  def admin_user
-    redirect_to(root_url) unless current_user.admin?
-  end
+  # def admin_user
+  #   redirect_to(root_url) unless current_user.admin?
+  # end
 
   def following
     @title = 'Following'

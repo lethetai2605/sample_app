@@ -1,6 +1,18 @@
 # user model
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+
+  # devise :database_authenticatable, 
+          #:registerable,
+  #        :recoverable, :rememberable, :validatable
   # frozen_string_literal: true
+  belongs_to :role, optional: true
+  before_save :assign_role
+  def assign_role
+    self.role = Role.find_by name: 'Regular' if role.nil?
+  end
+
   has_many :providers, dependent: :destroy
   has_many :microposts, dependent: :destroy # user huy thi micro cung huy
   has_many :active_relationships, class_name: "Relationship",
@@ -126,6 +138,10 @@ class User < ApplicationRecord
   # Returns true if the current user is following the other user.
   def following?(other_user)
     following.include?(other_user)
+  end
+
+  def admin?
+    role.name == 'Admin'
   end
 
   private
