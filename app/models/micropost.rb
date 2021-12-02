@@ -1,6 +1,9 @@
 # Micropost
 class Micropost < ApplicationRecord
   # frozen_string_literal: true
+  has_many :react_posts, dependent: :destroy
+  has_many :replies, dependent: :destroy
+
   belongs_to :user
   has_one_attached :image
   default_scope -> { order(created_at: :desc) }

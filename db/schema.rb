@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_25_161308) do
+ActiveRecord::Schema.define(version: 2021_12_01_143451) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -58,6 +58,26 @@ ActiveRecord::Schema.define(version: 2021_11_25_161308) do
     t.index ["user_id"], name: "index_providers_on_user_id"
   end
 
+  create_table "react_posts", force: :cascade do |t|
+    t.integer "micropost_id", null: false
+    t.integer "reaction_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["micropost_id", "user_id", "created_at"], name: "index_react_posts_on_micropost_id_and_user_id_and_created_at"
+    t.index ["micropost_id"], name: "index_react_posts_on_micropost_id"
+    t.index ["reaction_id"], name: "index_react_posts_on_reaction_id"
+    t.index ["user_id"], name: "index_react_posts_on_user_id"
+  end
+
+  create_table "reactions", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_reactions_on_name", unique: true
+  end
+
   create_table "relationships", force: :cascade do |t|
     t.integer "follower_id"
     t.integer "followed_id"
@@ -66,6 +86,17 @@ ActiveRecord::Schema.define(version: 2021_11_25_161308) do
     t.index ["followed_id"], name: "index_relationships_on_followed_id"
     t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
+  end
+
+  create_table "replies", force: :cascade do |t|
+    t.text "content"
+    t.integer "user_id", null: false
+    t.integer "micropost_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["micropost_id"], name: "index_replies_on_micropost_id"
+    t.index ["user_id", "micropost_id", "created_at"], name: "index_replies_on_user_id_and_micropost_id_and_created_at"
+    t.index ["user_id"], name: "index_replies_on_user_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -96,5 +127,10 @@ ActiveRecord::Schema.define(version: 2021_11_25_161308) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "microposts", "users"
   add_foreign_key "providers", "users"
+  add_foreign_key "react_posts", "microposts"
+  add_foreign_key "react_posts", "reactions"
+  add_foreign_key "react_posts", "users"
+  add_foreign_key "replies", "microposts"
+  add_foreign_key "replies", "users"
   add_foreign_key "users", "roles"
 end

@@ -1,0 +1,11 @@
+<div class="card ml-5">
+  <div class="card-body">
+    &emsp;<%= link_to reply.user.name, user_path(reply.user) %>
+    <%= reply.content %>
+    Commented <%= time_ago_in_words(reply.created_at) %> ago.
+    <% if current_user?(reply.user) %>
+      <%= link_to "delete", reply, method: :delete,
+                                 data: { confirm: "You sure?" } %>
+    <% end %>
+  </div>
+</div>

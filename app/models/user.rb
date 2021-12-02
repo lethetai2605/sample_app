@@ -7,6 +7,9 @@ class User < ApplicationRecord
           #:registerable,
   #        :recoverable, :rememberable, :validatable
   # frozen_string_literal: true
+  has_many :react_posts, dependent: :destroy
+  has_many :replies, dependent: :destroy
+
   belongs_to :role, optional: true
   before_save :assign_role
   def assign_role

@@ -37,3 +37,8 @@ following = users[2..50]
 followers = users[3..40]
 following.each { |followed| user.follow(followed) }
 followers.each { |follower| follower.follow(user) }
+
+Reaction.create!({
+  name: 'like',
+  url: 'like.png',
+  created_at: Time.zone.now })

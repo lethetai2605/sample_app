@@ -5,10 +5,25 @@
     <%= image_tag micropost.display_image if micropost.image.attached? %>
   </span>
   <span class="timestamp">
+  <% pre_like = micropost.react_posts.find { |like| like.user_id == current_user.id} %>
+  <% if pre_like %>
+    <%= link_to 'Unlike', micropost_reaction_path(micropost_id: micropost.id, id: pre_like.id), method: :delete%>
+  <% else %>
+    <%= link_to "Like" , micropost_reactions_path(micropost_id: micropost.id), method: :post%>
+  <% end %>
+      
+      <%= link_to 'Reply', new_micropost_reply_path(@micropost, micropost_id: micropost.id), remote: true %>
     Posted <%= time_ago_in_words(micropost.created_at) %> ago.
     <% if current_user?(micropost.user) %>
       <%= link_to "delete", micropost, method: :delete,
-    data: { confirm: "You sure?" } %>
+                                 data: { confirm: "You sure?" } %>
     <% end %>
+
+    <% if micropost.replies.any? %>
+    <% micropost.replies.each do |reply| %> 
+      <%= render partial: 'replies/reply', locals: { reply: reply } %>
+    <% end %>
+  <% end %>
   </span>
+  <div id="reply-form-<%= micropost.id %>"></div>
 </li>
