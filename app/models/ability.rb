@@ -8,6 +8,7 @@ class Ability
       if user.admin?
         can :manage, :all
       else
+        can :create, User
         can :read, User do |user|
           user.try(:id) == user.id
         end

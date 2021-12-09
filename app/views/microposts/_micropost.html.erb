@@ -7,17 +7,34 @@
   <span class="timestamp">
   <% pre_like = micropost.react_posts.find { |like| like.user_id == current_user.id} %>
   <% if pre_like %>
-    <%= link_to 'Unlike', micropost_reaction_path(micropost_id: micropost.id, id: pre_like.id), method: :delete%>
+    <%= link_to 'Unlike', micropost_reaction_path(micropost_id: micropost.id, id: pre_like.id), method: :delete, remote: true%>
   <% else %>
-    <%= link_to "Like" , micropost_reactions_path(micropost_id: micropost.id), method: :post%>
+    <%= link_to "Like" , micropost_reactions_path(micropost_id: micropost.id), method: :post, remote: true, id: micropost.id %>
   <% end %>
-      
-      <%= link_to 'Reply', new_micropost_reply_path(@micropost, micropost_id: micropost.id), remote: true %>
-    Posted <%= time_ago_in_words(micropost.created_at) %> ago.
-    <% if current_user?(micropost.user) %>
-      <%= link_to "delete", micropost, method: :delete,
-                                 data: { confirm: "You sure?" } %>
-    <% end %>
+
+				<!-- Reaction system start -->
+				<div class="facebook-reaction"><!-- container div for reaction system -->
+					<span class="like-btn"> <!-- Default like button -->
+						<span class="like-btn-emo like-btn-default"></span> <!-- Default like button emotion-->
+						<span class="like-btn-text">Like</span> <!-- Default like button text,(Like, wow, sad..) default:Like  -->
+						  <ul class="reactions-box"> <!-- Reaction buttons container-->
+								<li class="reaction reaction-like" data-reaction="Like"></li>
+								<li class="reaction reaction-love" data-reaction="Love"></li>
+								<li class="reaction reaction-haha" data-reaction="HaHa"></li>
+								<li class="reaction reaction-wow" data-reaction="Wow"></li>
+								<li class="reaction reaction-sad" data-reaction="Sad"></li>
+								<li class="reaction reaction-angry" data-reaction="Angry"></li>
+						  </ul>
+					</span>
+          <span>
+            <%= link_to 'Reply', new_micropost_reply_path(@micropost, micropost_id: micropost.id), remote: true %>
+            Posted <%= time_ago_in_words(micropost.created_at) %> ago.
+            <% if current_user?(micropost.user) %>
+              <%= link_to "delete", micropost, method: :delete,
+                                        data: { confirm: "You sure?" } %>
+            <% end %>
+          </span>
+				 </div>
 
     <% if micropost.replies.any? %>
     <% micropost.replies.each do |reply| %> 

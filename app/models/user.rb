@@ -144,7 +144,9 @@ class User < ApplicationRecord
   end
 
   def admin?
-    role.name == 'Admin'
+    if role != nil
+      role.name == 'Admin'
+    end
   end
 
   private

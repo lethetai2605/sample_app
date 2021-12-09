@@ -4,7 +4,7 @@
     <%= reply.content %>
     Commented <%= time_ago_in_words(reply.created_at) %> ago.
     <% if current_user?(reply.user) %>
-      <%= link_to "delete", reply, method: :delete,
+      <%= link_to "delete", micropost_reply_path(reply.micropost.id,reply.id) , method: :delete,
                                  data: { confirm: "You sure?" } %>
     <% end %>
   </div>

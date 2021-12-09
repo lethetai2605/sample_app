@@ -14,26 +14,22 @@ class RepliesController < ApplicationController
     @reply.user_id = current_user.id
     # binding.pry
     if @reply.save
-      redirect_to root_url
+      redirect_back(fallback_location: root_path) 
     else
-      @feed_items = current_user.feed.paginate(page: params[:page])
-      render 'static_pages/home'
+      flash[:danger] = "Comment too long"
+      redirect_back(fallback_location: root_path)
     end
   end
 
   def destroy
     Reply.find(params[:id]).destroy
-    if request.referrer.nil? || request.referrer == replies_url
-      redirect_to root_url
-    else
-      redirect_to request.referrer # back lai url trc khi xoa
-    end
+    redirect_back(fallback_location: root_path)
   end
 
   def logged_in_user
     unless logged_in?
       store_location # neu chua login thi cung luu cai url dinh vao
-      flash[:danger] = 'Please log in.'
+      flash[:danger] = "Please log in."
       redirect_to login_url
     end
   end

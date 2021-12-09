@@ -9,10 +9,9 @@ class ReactionsController < ApplicationController
       @react_post.user_id = current_user.id
       @react_post.reaction_id = '1'
       if @react_post.save
-        redirect_to root_path
+
       else
-        @feed_items = current_user.feed.paginate(page: params[:page])
-        render 'static_pages/home'
+        redirect_back(fallback_location: root_path)
       end
     end
   end
@@ -21,7 +20,7 @@ class ReactionsController < ApplicationController
     if already_liked?
       @react_post = @micropost.react_posts.find_by(micropost_id: params[:micropost_id])
       if @react_post.destroy
-        redirect_to root_path
+
       end
     end
   end

@@ -28,12 +28,9 @@ Rails.application.routes.draw do
   resources :password_resets, only: %i[new create edit update]
   resources :microposts, only: %i[create destroy]
   resources :relationships, only: %i[create destroy]
-  resources :replies
-  resources :microposts do
-    resources :replies
-  end
 
   resources :microposts do
+    resources :replies
     resources :reactions
   end
 end

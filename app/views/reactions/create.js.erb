@@ -1,0 +1,10 @@
+$(document).on('click', () => {
+$("#<%= @micropost.id %>").text("Unlike")
+});
+
+var ready;
+ready = function() {
+
+};
+
+$(document).on('turbolinks:load', ready);

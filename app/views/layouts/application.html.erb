@@ -4,6 +4,17 @@
 <title><%= full_title(yield(:title)) %></title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<%# <!-- bootstrap css -->
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="style.css" />
+<!-- Css for reaction system -->
+<link rel="stylesheet" type="text/css" href="css/reaction.css" />
+		
+<script type="text/javascript" src="like/js/jquery.min.js"></script>
+<!-- jQuery for Reaction system -->
+<script type="text/javascript" src="js/reaction.js"></script> %>
+
 <%= render 'layouts/rails_default' %>
 <%= render 'layouts/shim' %>
 </head>

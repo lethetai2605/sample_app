@@ -1,6 +1,6 @@
 <div class="card ml-5">
   <div class="card-body">
-    <%= form_with(model: [@micropost, @reply]) do |f| %>
+    <%= form_with(model: [@micropost, @reply], remote: true) do |f| %>
       <%= f.hidden_field :micropost_id %>
       <div class="form-group">
         <%= f.text_area :content, class: 'form-control' %>
