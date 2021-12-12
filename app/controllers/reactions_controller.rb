@@ -2,25 +2,25 @@ class ReactionsController < ApplicationController
   before_action :find_post
 
   def create
-    if already_liked?
-      redirect_to root_path
+    if User.already_liked?(current_user, @micropost.id)
+      @react_post = @micropost.react_posts.where(user_id: current_user.id, micropost_id: params[:micropost_id])
+      if @react_post.update(reaction_id: params[:current_reaction_id])
+      end
+     
     else
       @react_post = @micropost.react_posts.new(micropost_id: params[:micropost_id])
       @react_post.user_id = current_user.id
-      @react_post.reaction_id = '1'
+      @react_post.reaction_id = params[:current_reaction_id]
+    
       if @react_post.save
-
-      else
-        redirect_back(fallback_location: root_path)
       end
     end
   end
 
   def destroy
-    if already_liked?
+    if User.already_liked?(current_user, @micropost.id)
       @react_post = @micropost.react_posts.find_by(micropost_id: params[:micropost_id])
       if @react_post.destroy
-
       end
     end
   end
@@ -31,7 +31,7 @@ class ReactionsController < ApplicationController
     @micropost = Micropost.find(params[:micropost_id])
   end
 
-  def already_liked?
-    ReactPost.where(user_id: current_user.id, micropost_id: params[:micropost_id]).exists?
+  def reaction_params
+    params.require(:reaction).permit(:current_react)
   end
 end

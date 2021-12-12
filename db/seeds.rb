@@ -42,3 +42,30 @@ Reaction.create!({
   name: 'like',
   url: 'like.png',
   created_at: Time.zone.now })
+
+Reaction.create!({
+  name: "Love",
+  url: "love.png",
+  created_at: Time.zone.now
+})
+
+Reaction.create!({
+  name: "Haha",
+  url: "haha.png",
+  created_at: Time.zone.now
+})
+Reaction.create!({
+  name: "Wow",
+  url: "wow.png",
+  created_at: Time.zone.now
+})
+Reaction.create!({
+  name: "Sad",
+  url: "sad.png",
+  created_at: Time.zone.now
+})
+Reaction.create!({
+  name: "Angry",
+  url: "angry.png",
+  created_at: Time.zone.now
+})

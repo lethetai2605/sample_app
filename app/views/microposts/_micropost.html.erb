@@ -5,42 +5,60 @@
     <%= image_tag micropost.display_image if micropost.image.attached? %>
   </span>
   <span class="timestamp">
-  <% pre_like = micropost.react_posts.find { |like| like.user_id == current_user.id} %>
-  <% if pre_like %>
-    <%= link_to 'Unlike', micropost_reaction_path(micropost_id: micropost.id, id: pre_like.id), method: :delete, remote: true%>
-  <% else %>
-    <%= link_to "Like" , micropost_reactions_path(micropost_id: micropost.id), method: :post, remote: true, id: micropost.id %>
-  <% end %>
-
-				<!-- Reaction system start -->
-				<div class="facebook-reaction"><!-- container div for reaction system -->
-					<span class="like-btn"> <!-- Default like button -->
-						<span class="like-btn-emo like-btn-default"></span> <!-- Default like button emotion-->
-						<span class="like-btn-text">Like</span> <!-- Default like button text,(Like, wow, sad..) default:Like  -->
-						  <ul class="reactions-box"> <!-- Reaction buttons container-->
-								<li class="reaction reaction-like" data-reaction="Like"></li>
-								<li class="reaction reaction-love" data-reaction="Love"></li>
-								<li class="reaction reaction-haha" data-reaction="HaHa"></li>
-								<li class="reaction reaction-wow" data-reaction="Wow"></li>
-								<li class="reaction reaction-sad" data-reaction="Sad"></li>
-								<li class="reaction reaction-angry" data-reaction="Angry"></li>
-						  </ul>
-					</span>
-          <span>
-            <%= link_to 'Reply', new_micropost_reply_path(@micropost, micropost_id: micropost.id), remote: true %>
-            Posted <%= time_ago_in_words(micropost.created_at) %> ago.
-            <% if current_user?(micropost.user) %>
-              <%= link_to "delete", micropost, method: :delete,
-                                        data: { confirm: "You sure?" } %>
-            <% end %>
-          </span>
-				 </div>
+    <div class="facebook-reaction"><!-- container div for reaction system -->
+      <span id="react-<%= micropost.id %>" class="like-btn"> <!-- Default like button -->
+      <%= link_to "", micropost_reactions_path(micropost_id: micropost.id, current_reaction_id: ""), method: :post, remote: true %>
+      <%= link_to "", micropost_reaction_path(micropost_id: micropost.id, id: current_user.id), method: :delete, remote: true %>
+      <% pre_like = micropost.react_posts.find { |like| like.user_id == current_user.id } %>
+      <% if pre_like %>
+        <% case pre_like.reaction_id
+          when 1 %>
+            <span class="like-btn-emo like-btn-like"></span>
+            <span class="like-btn-text like-btn-text-like">Like</span>
+          <% when 2 %>
+            <span class="like-btn-emo like-btn-love"></span>
+            <span class="like-btn-text like-btn-text-love">Love</span>
+          <% when 3 %>
+            <span class="like-btn-emo like-btn-haha"></span>
+            <span class="like-btn-text like-btn-text-haha">HaHa</span>
+          <% when 4 %>
+            <span class="like-btn-emo like-btn-wow"></span>
+            <span class="like-btn-text like-btn-text-wow">Wow</span>
+          <% when 5 %>
+            <span class="like-btn-emo like-btn-sad"></span>
+            <span class="like-btn-text like-btn-text-sad">Sad</span>
+          <% when 6 %>
+            <span class="like-btn-emo like-btn-angry"></span>
+            <span class="like-btn-text like-btn-text-angry">Angry</span>
+          <% end %>
+        <% else %>
+            <span class="like-btn-emo like-btn-default"></span> <!-- Default like button emotion-->
+            <span class="like-btn-text">Like</span> <!-- Default like button text,(Like, wow, sad..) default:Like  -->
+        <% end %>
+          <ul class="reactions-box"> <!-- Reaction buttons container-->
+            <li class="reaction reaction-like" data-reaction="Like"></li>
+            <li class="reaction reaction-love" data-reaction="Love"></li>
+            <li class="reaction reaction-haha" data-reaction="HaHa"></li>
+            <li class="reaction reaction-wow" data-reaction="Wow"></li>
+            <li class="reaction reaction-sad" data-reaction="Sad"></li>
+            <li class="reaction reaction-angry" data-reaction="Angry"></li>
+          </ul>
+      </span>
+            <span>
+              <%= link_to "Reply", new_micropost_reply_path(@micropost, micropost_id: micropost.id), remote: true %>
+              Posted <%= time_ago_in_words(micropost.created_at) %> ago.
+              <% if current_user?(micropost.user) %>
+                <%= link_to "delete", micropost, method: :delete,
+                                                data: { confirm: "You sure?" } %>
+              <% end %>
+            </span>
+    </div>
 
     <% if micropost.replies.any? %>
-    <% micropost.replies.each do |reply| %> 
-      <%= render partial: 'replies/reply', locals: { reply: reply } %>
+      <% micropost.replies.each do |reply| %> 
+        <%= render partial: "replies/reply", locals: { reply: reply } %>
+      <% end %>
     <% end %>
-  <% end %>
   </span>
   <div id="reply-form-<%= micropost.id %>"></div>
 </li>
