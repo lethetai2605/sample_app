@@ -4,16 +4,12 @@ class ReactionsController < ApplicationController
   def create
     if User.already_liked?(current_user, @micropost.id)
       @react_post = @micropost.react_posts.where(user_id: current_user.id, micropost_id: params[:micropost_id])
-      if @react_post.update(reaction_id: params[:current_reaction_id])
-      end
-     
+      @react_post.update(reaction_id: params[:react_id])
     else
       @react_post = @micropost.react_posts.new(micropost_id: params[:micropost_id])
       @react_post.user_id = current_user.id
-      @react_post.reaction_id = params[:current_reaction_id]
-    
-      if @react_post.save
-      end
+      @react_post.reaction_id = params[:react_id]
+      @react_post.save
     end
   end
 
@@ -29,9 +25,5 @@ class ReactionsController < ApplicationController
 
   def find_post
     @micropost = Micropost.find(params[:micropost_id])
-  end
-
-  def reaction_params
-    params.require(:reaction).permit(:current_react)
   end
 end

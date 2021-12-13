@@ -7,7 +7,7 @@
   <span class="timestamp">
     <div class="facebook-reaction"><!-- container div for reaction system -->
       <span id="react-<%= micropost.id %>" class="like-btn"> <!-- Default like button -->
-      <%= link_to "", micropost_reactions_path(micropost_id: micropost.id, current_reaction_id: ""), method: :post, remote: true %>
+      <%= link_to "", micropost_reactions_path(micropost_id: micropost.id, react_id: ""), method: :post, remote: true %>
       <%= link_to "", micropost_reaction_path(micropost_id: micropost.id, id: current_user.id), method: :delete, remote: true %>
       <% pre_like = micropost.react_posts.find { |like| like.user_id == current_user.id } %>
       <% if pre_like %>
