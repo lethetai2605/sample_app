@@ -1,5 +1,7 @@
+# RolesController
 class RolesController < ApplicationController
-  before_action :set_role, only: [:show, :edit, :update, :destroy]
+  # frozen_string_literal: true
+  before_action :set_role, only: %i[show edit update destroy]
   load_and_authorize_resource
   # GET /roles
   # GET /roles.json
@@ -9,8 +11,7 @@ class RolesController < ApplicationController
 
   # GET /roles/1
   # GET /roles/1.json
-  def show
-  end
+  def show; end
 
   # GET /roles/new
   def new
@@ -18,8 +19,7 @@ class RolesController < ApplicationController
   end
 
   # GET /roles/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /roles
   # POST /roles.json
@@ -62,12 +62,14 @@ class RolesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_role
-      @role = Role.find(params[:id])
-    end
-    # Only allow a list of trusted parameters through.
-    def role_params
-      params.require(:role).permit(:name, :description)
-    end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_role
+    @role = Role.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def role_params
+    params.require(:role).permit(:name, :description)
+  end
 end

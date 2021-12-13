@@ -1,12 +1,12 @@
 # user model
 class User < ApplicationRecord
+  # frozen_string_literal: true
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
 
-  # devise :database_authenticatable, 
-          #:registerable,
+  # devise :database_authenticatable,
+  #:registerable,
   #        :recoverable, :rememberable, :validatable
-  # frozen_string_literal: true
   has_many :react_posts, dependent: :destroy
   has_many :replies, dependent: :destroy
 
@@ -148,9 +148,7 @@ class User < ApplicationRecord
   end
 
   def admin?
-    if role != nil
-      role.name == 'Admin'
-    end
+    role.name == 'Admin' unless role.nil?
   end
 
   private

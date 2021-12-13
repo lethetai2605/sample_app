@@ -1,3 +1,5 @@
+# Reaction
 class Reaction < ApplicationRecord
-    has_many :react_posts, dependent: :destroy
+  # frozen_string_literal: true
+  has_many :react_posts, dependent: :destroy
 end

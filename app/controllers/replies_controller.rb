@@ -1,3 +1,4 @@
+# RepliesController
 class RepliesController < ApplicationController
   # frozen_string_literal: true
   before_action :logged_in_user, only: %i[create destroy]
@@ -14,11 +15,10 @@ class RepliesController < ApplicationController
     @reply.user_id = current_user.id
     # binding.pry
     if @reply.save
-      redirect_back(fallback_location: root_path) 
     else
-      flash[:danger] = "Comment too long"
-      redirect_back(fallback_location: root_path)
+      flash[:danger] = 'Comment too long'
     end
+    redirect_back(fallback_location: root_path)
   end
 
   def destroy
@@ -29,7 +29,7 @@ class RepliesController < ApplicationController
   def logged_in_user
     unless logged_in?
       store_location # neu chua login thi cung luu cai url dinh vao
-      flash[:danger] = "Please log in."
+      flash[:danger] = 'Please log in.'
       redirect_to login_url
     end
   end

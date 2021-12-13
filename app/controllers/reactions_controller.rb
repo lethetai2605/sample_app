@@ -1,4 +1,6 @@
+# ReactionsController
 class ReactionsController < ApplicationController
+  # frozen_string_literal: true
   before_action :find_post
 
   def create
