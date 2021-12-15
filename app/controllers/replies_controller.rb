@@ -2,7 +2,7 @@
 class RepliesController < ApplicationController
   # frozen_string_literal: true
   before_action :logged_in_user, only: %i[create destroy]
-  before_action :correct_user, only: :destroy
+  before_action :check_user_replies, only: :destroy
 
   def new
     @micropost = Micropost.find(params[:micropost_id])
@@ -40,7 +40,7 @@ class RepliesController < ApplicationController
     params.require(:reply).permit(:content)
   end
 
-  def correct_user
+  def check_user_replies
     @reply = current_user.replies.find_by(id: params[:id])
     redirect_to root_url if @reply.nil?
   end

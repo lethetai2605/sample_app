@@ -17,7 +17,7 @@ class ReactionsController < ApplicationController
 
   def destroy
     if User.already_liked?(current_user, @micropost.id)
-      @react_post = @micropost.react_posts.find_by(micropost_id: params[:micropost_id])
+      @react_post = @micropost.react_posts.find_by(micropost_id: params[:micropost_id], user_id: current_user.id)
       if @react_post.destroy
       end
     end
