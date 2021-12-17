@@ -60,10 +60,6 @@ class User < ApplicationRecord
       @user = User.new(email: email, name: full_name, activated: true, password: password)
       @user.save
     end
-
-    def already_liked?(user, micropost_id)
-      ReactPost.where(user_id: user.id, micropost_id: micropost_id).exists?
-    end
   end
 
   def remember

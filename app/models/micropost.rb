@@ -17,4 +17,8 @@ class Micropost < ApplicationRecord
   def display_image
     image.variant(resize_to_limit: [500, 500])
   end
+
+  def user_already_liked?(user)
+    react_posts.where(user_id: user.id).exists?
+  end
 end
