@@ -5,10 +5,10 @@ class ReactionsController < ApplicationController
 
   def create
     if @micropost.user_already_liked? current_user
-      @react_post = @micropost.react_posts.where(user_id: current_user.id, micropost_id: params[:micropost_id])
+      @react_post = @micropost.react_posts.where(user_id: current_user.id)
       @react_post.update(reaction_id: params[:react_id])
     else
-      @react_post = @micropost.react_posts.new(micropost_id: params[:micropost_id])
+      @react_post = @micropost.react_posts.new
       @react_post.user_id = current_user.id
       @react_post.reaction_id = params[:react_id]
       @react_post.save
@@ -17,9 +17,8 @@ class ReactionsController < ApplicationController
 
   def destroy
     if @micropost.user_already_liked? current_user
-      @react_post = @micropost.react_posts.find_by(micropost_id: params[:micropost_id], user_id: current_user.id)
-      if @react_post.destroy
-      end
+      @react_post = @micropost.react_posts.find_by(user_id: current_user.id)
+      @react_post.destroy
     end
   end
 

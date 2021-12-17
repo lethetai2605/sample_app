@@ -13,10 +13,8 @@ class RepliesController < ApplicationController
     @micropost = Micropost.find(params[:micropost_id])
     @reply = @micropost.replies.new(replies_params)
     @reply.user_id = current_user.id
-    # binding.pry
-    if @reply.save
-    else
-      flash[:danger] = 'Comment too long'
+    unless @reply.save
+      flash[:danger] = 'Reply cannot be blank and too long'
     end
     redirect_back(fallback_location: root_path)
   end
