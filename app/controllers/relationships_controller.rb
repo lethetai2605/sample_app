@@ -2,6 +2,7 @@
 class RelationshipsController < ApplicationController
   # frozen_string_literal: true
   before_action :logged_in_user
+  load_and_authorize_resource
 
   def create
     @user = User.find(params[:followed_id])

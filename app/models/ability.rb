@@ -9,19 +9,16 @@ class Ability
       can :manage, :all
     else
       can :create, User
-      can :read, User do |usr|
-        usr.try(:id) == user.id
-      end
-      can :update, User do |usr|
+      can [:update, :export], User do |usr|
         usr.try(:id) == user.id
       end
       can :create, Micropost
-      can :update, Micropost do |micro|
+      can [:update, :destroy], Micropost do |micro|
         micro.try(:user) == user
       end
-      can :destroy, Micropost do |micro|
-        micro.try(:user) == user
-      end
+      can :show, User
+      can %i[following followers], User
+      can :manage, Relationship
     end
   end
 end

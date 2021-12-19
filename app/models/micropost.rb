@@ -1,6 +1,8 @@
 # Micropost
 class Micropost < ApplicationRecord
   # frozen_string_literal: true
+  MICROPOST_ATTRIBUTES = %w[content created_at].freeze
+  scope :recent_posts, ->(user_id) { where(user_id: user_id).where('created_at > ?', 1.month.ago) }
   has_many :react_posts, dependent: :destroy
   has_many :replies, dependent: :destroy
 

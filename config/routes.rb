@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   get '/auth/:provider/callback', to: 'sessions#omniauth'
+  get '/users/:id/export', to: 'users#export', as: 'export'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resources :users do
     member do

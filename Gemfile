@@ -35,6 +35,9 @@ gem 'devise'
 gem 'cancancan'
 gem 'rolify'
 
+gem 'rubyzip'
+gem 'zip-zip'
+
 group :development, :test do
   gem 'byebug',  '11.1.3', platforms: %i[mri mingw x64_mingw]
   gem 'sqlite3', '1.4.2'

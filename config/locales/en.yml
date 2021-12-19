@@ -31,3 +31,8 @@
 
 en:
   hello: "Hello world"
+  header_csv:
+    content: "Content"
+    created_at: "Time Created"
+    follower_name: "Follower Name"
+    following_name: "Following Name"

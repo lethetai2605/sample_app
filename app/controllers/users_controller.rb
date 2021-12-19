@@ -89,6 +89,22 @@ class UsersController < ApplicationController
     render 'show_follow'
   end
 
+  def export
+    csv1 = ExportCsvService.new Micropost.recent_posts(params[:id]), Micropost::MICROPOST_ATTRIBUTES
+    csv2 = ExportCsvService.new Relationship.followings(params[:id]), Relationship::FOLLOWING_ATTRIBUTES
+    csv3 = ExportCsvService.new Relationship.followers(params[:id]), Relationship::FOLLOWER_ATTRIBUTES
+    zip = Zip::OutputStream.write_buffer do |zipfile|
+      zipfile.put_next_entry 'export_posts.csv'
+      zipfile.print csv1.perform
+      zipfile.put_next_entry 'export_followings.csv'
+      zipfile.print csv2.perform
+      zipfile.put_next_entry 'export_followers.csv'
+      zipfile.print csv3.perform
+    end
+    zip.rewind
+    send_data zip.read, filename: 'export_user.zip'
+  end
+
   private
 
   def user_params

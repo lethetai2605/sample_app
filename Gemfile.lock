@@ -357,6 +357,8 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.5.1)
+    zip-zip (0.3)
+      rubyzip (>= 1.0.0)
 
 PLATFORMS
   x64-mingw32
@@ -396,6 +398,7 @@ DEPENDENCIES
   rolify
   rubocop (~> 0.72.0)
   rubocop-rails (~> 2.3.2)
+  rubyzip
   sass-rails (= 6.0.0)
   selenium-webdriver (= 3.142.7)
   spring (= 2.1.1)
@@ -406,6 +409,7 @@ DEPENDENCIES
   webdrivers (= 4.6.0)
   webpacker (= 5.4.0)
   will_paginate (= 3.3.0)
+  zip-zip
 
 BUNDLED WITH
    2.1.4
