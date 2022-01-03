@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   resources :roles
   devise_for :users
-  # frozen_string_literal: true
   get 'password_resets/new'
   get 'password_resets/edit'
   get 'sessions/new'
@@ -17,7 +20,9 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   get '/auth/:provider/callback', to: 'sessions#omniauth'
   get '/users/:id/export', to: 'users#export', as: 'export'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  patch '/users/read/:id', to: 'users#read_notification', as: 'users_read'
+  patch '/users/read/micropost/:id', to: 'microposts#read_post', as: 'users_read_post'
+
   resources :users do
     member do
       get :following, :followers
@@ -34,4 +39,7 @@ Rails.application.routes.draw do
     resources :replies
     resources :reactions
   end
+
+  mount ActionCable.server => '/cable'
+  mount Sidekiq::Web => '/sidekiq'
 end

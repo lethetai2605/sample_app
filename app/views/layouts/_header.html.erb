@@ -20,11 +20,30 @@ id="bs-example-navbar-collapse-1">
 <ul class="nav navbar-nav navbar-right">
 <li><%= link_to "Home", root_path %></li>
 <li><%= link_to "Help", help_path %></li>
-<%# <% if logged_in? %> 
+<% # <% if logged_in? %> 
 <% if user_signed_in? %>
 <% if can? :destroy, User %>
 <li><%= link_to "Users", users_path %></li>
 <% end %>
+
+<li class="dropdown">
+  <a href="<%= users_read_path(current_user.id) %>" onclick="read_notification()" class="dropdown-toggle" data-toggle="dropdown" id="noti-dropdown">
+    Notification <b class="notification"></b>
+    <span class="badge" id ="notification-counter-<%= current_user.id %>">
+      <% unless User.readed_notification? current_user.id %>
+        <%= Micropost.all_unread_notification(current_user.id).count %>
+      <% else %>
+        0
+      <% end %>
+    </span>
+  </a>
+  <ul class="dropdown-menu" id = "notification-menu-<%= current_user.id %>">
+    <% Micropost.all_notification(current_user.id).each do |notification| %>
+      <%= render "shared/notification", micropost: notification %>
+    <% end %>
+  </ul>
+</li>
+
 <li class="dropdown">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 Account <b class="caret"></b>
@@ -46,3 +65,14 @@ Account <b class="caret"></b>
 </nav>
 </div>
 </header>
+
+<script type="text/javascript">
+  function read_notification() {
+    <% unless current_user.nil? %>
+      $.ajax({
+        type: "PATCH",
+        url: "<%= users_read_path(current_user.id) %>",
+      })
+    <% end %>
+  }
+</script>

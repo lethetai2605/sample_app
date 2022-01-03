@@ -105,6 +105,10 @@ class UsersController < ApplicationController
     send_data zip.read, filename: 'export_user.zip'
   end
 
+  def read_notification
+    @user.update(read_notification: true)
+  end
+
   private
 
   def user_params

@@ -16,11 +16,15 @@ class RepliesController < ApplicationController
     unless @reply.save
       flash[:danger] = 'Reply cannot be blank and too long'
     end
+    NotificationMailer.new_notification(@reply).deliver_now
+    @micropost.user.update(read_notification: false)
+    @micropost.update(is_read: false)
     redirect_back(fallback_location: root_path)
   end
 
   def destroy
-    Reply.find(params[:id]).destroy
+    @reply.destroy_notification
+    @reply.destroy
     redirect_back(fallback_location: root_path)
   end
 

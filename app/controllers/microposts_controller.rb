@@ -34,6 +34,11 @@ class MicropostsController < ApplicationController
     end
   end
 
+  def read_post
+    @micropost = Micropost.find(params[:id])
+    @micropost.update(is_read: true)
+  end
+
   private
 
   def micropost_params

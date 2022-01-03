@@ -9,6 +9,7 @@ class Ability
       can :manage, :all
     else
       can :create, User
+      can :read_notification, User
       can [:update, :export], User do |usr|
         usr.try(:id) == user.id
       end

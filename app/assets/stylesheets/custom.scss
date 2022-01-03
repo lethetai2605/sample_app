@@ -281,3 +281,12 @@ input {
 border: 0;
 }
 }
+
+.notification{
+  background: white;
+  border: none;
+  color: blue;
+  &.muted{
+    color: gray;
+  }
+}

@@ -38,6 +38,9 @@ gem 'rolify'
 gem 'rubyzip'
 gem 'zip-zip'
 
+gem 'sidekiq'
+gem 'redis'
+
 group :development, :test do
   gem 'byebug',  '11.1.3', platforms: %i[mri mingw x64_mingw]
   gem 'sqlite3', '1.4.2'
@@ -48,6 +51,7 @@ group :development do
   gem 'rack-mini-profiler', '2.3.1'
   gem 'spring',             '2.1.1'
   gem 'web-console',        '4.1.0'
+  gem 'pry'
 end
 
 group :test do

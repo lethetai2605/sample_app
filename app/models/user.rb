@@ -37,7 +37,7 @@ class User < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
   has_secure_password
-  validates :password, presence: true, length: { minimum: 3 }
+  # validates :password, presence: true, length: { minimum: 3 }
   class << self
     def digest(string)
       cost = if ActiveModel::SecurePassword.min_cost
@@ -59,6 +59,10 @@ class User < ApplicationRecord
       password = SecureRandom.hex(15)
       @user = User.new(email: email, name: full_name, activated: true, password: password)
       @user.save
+    end
+
+    def readed_notification?(user_id)
+      find_by(id: user_id, read_notification: true)
     end
   end
 

@@ -1,0 +1,23 @@
+<li id = "notification-<%= micropost.id %>">
+  <%= form_with(model: micropost, remote: true, url: users_read_post_path(micropost.id), html: { method: :patch }) do |f| %>
+    <% unless micropost.is_read %>
+      <% micropost.react_posts.each do |reaction| %>
+        <%= f.submit "User #{reaction.user.name} has reacted to your post #{micropost.content[0..5]}... at #{time_ago_in_words(reaction.created_at)}",
+                     class: "notification" %>
+      <% end %>
+      <% micropost.replies.each do |reply| %>
+        <%= f.submit "User #{reply.user.name} has replied to your post #{micropost.content[0..5]}... at #{time_ago_in_words(reply.created_at)}",
+                     class: "notification" %>
+      <% end %>
+    <% else %>
+      <% micropost.react_posts.each do |reaction| %>
+        <%= f.submit "User #{reaction.user.name} has reacted to your post #{micropost.content[0..5]}... at #{time_ago_in_words(reaction.created_at)}",
+                     class: "notification muted" %>
+      <% end %>
+      <% micropost.replies.each do |reply| %>
+        <%= f.submit "User #{reply.user.name} has replied to your post #{micropost.content[0..5]}... at #{time_ago_in_words(reply.created_at)}",
+                     class: "notification muted" %>
+      <% end %>
+    <% end %>
+  <% end %>
+</li>
