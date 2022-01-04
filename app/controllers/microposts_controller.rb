@@ -36,7 +36,9 @@ class MicropostsController < ApplicationController
 
   def read_post
     @micropost = Micropost.find(params[:id])
-    @micropost.update(is_read: true)
+    if @micropost.user.id == current_user.id
+      @micropost.update(is_read: true)
+    end
   end
 
   private

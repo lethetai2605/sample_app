@@ -31,7 +31,7 @@ id="bs-example-navbar-collapse-1">
     Notification <b class="notification"></b>
     <span class="badge" id ="notification-counter-<%= current_user.id %>">
       <% unless User.readed_notification? current_user.id %>
-        <%= Micropost.all_unread_notification(current_user.id).count %>
+        <%= Micropost.all_unread_replies(current_user.id).count + Micropost.all_unread_reactions(current_user.id).count %>
       <% else %>
         0
       <% end %>

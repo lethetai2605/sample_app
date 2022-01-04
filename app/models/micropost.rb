@@ -28,8 +28,10 @@ class Micropost < ApplicationRecord
   scope :all_notification, ->(user_id) {
     where(user_id: user_id)
   }
-  scope :all_unread_notification, ->(user_id) {
-    left_joins(:replies).where(user_id: user_id, is_read: false).where.not(replies: { id: nil }).where.not(replies: { user_id: user_id }) +
-      left_joins(:react_posts).where(user_id: user_id, is_read: false).where.not(react_posts: { id: nil }).where.not(react_posts: { user_id: user_id })
+  scope :all_unread_replies, ->(user_id) {
+    left_joins(:replies).where(user_id: user_id, is_read: false).where.not(replies: { id: nil }).where.not(replies: { user_id: user_id })
+  }
+  scope :all_unread_reactions, ->(user_id) {
+    left_joins(:react_posts).where(user_id: user_id, is_read: false).where.not(react_posts: { id: nil }).where.not(react_posts: { user_id: user_id })
   }
 end
