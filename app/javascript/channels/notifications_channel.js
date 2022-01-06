@@ -18,7 +18,7 @@ consumer.subscriptions.create("NotificationsChannel", {
       $(`#notification-${data.micropost.id}`).html("");
       val -= 1;
     } else {
-      $(`#notification-menu-${data.poster}`).prepend("" + data.notification);
+      $(`#notification-menu-${data.poster}`).prepend(data.notification);
       val += 1;
     }
     return $counter.text(val)

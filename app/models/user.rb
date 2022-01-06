@@ -60,10 +60,10 @@ class User < ApplicationRecord
       @user = User.new(email: email, name: full_name, activated: true, password: password)
       @user.save
     end
+  end
 
-    def readed_notification?(user_id)
-      find_by(id: user_id, read_notification: true)
-    end
+  def readed_notification?
+    read_notification == true
   end
 
   def remember
