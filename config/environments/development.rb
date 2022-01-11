@@ -73,4 +73,5 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
   config.hosts.clear
   config.active_job.queue_adapter = :sidekiq
+  config.action_controller.asset_host = 'http://localhost:3000/'
 end

@@ -1,0 +1,9 @@
+<div class="darker">
+  <%= link_to gravatar_for(message.sender, size: 50), message.receiver %>
+  <p><%= message.sender.name %></p>
+  <p><%= message.content %></p>
+  <%= image_tag message.display_image if message.image.attached? %>
+  <%= message.document.filename %>
+  <br>
+  <span class="time_right"><%= message.created_at %></span>
+</div>

@@ -1,0 +1,4 @@
+
+$('#chat_content_<%= @message.receiver.id %>').append(
+  "<%= escape_javascript(render 'messages/sender', message: @message).html_safe %>"
+)

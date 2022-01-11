@@ -10,6 +10,9 @@
     <section class="stats">
       <%= render 'shared/stats' %>
     </section>
+    <section class="send_message">
+      <button type="button" class = "btn btn-primary" onclick="openForm()">Message</button>
+    </section>
     <section class="exports">
       <%= link_to "Export micropost", export_path(format: :csv) %>
     </section>
@@ -25,3 +28,18 @@
     <% end %>
   </div>
 </div>
+
+<script>
+  function openForm() {
+    <%= sender_id = current_user.id %>
+    <%= receiver_id = @user.id %>
+
+    $('#chats').html(
+      "<%= escape_javascript(render "messages/chat_form",
+        messages: Message.pair_messages(sender_id, receiver_id),
+        sender_id: sender_id, receiver_id: receiver_id
+      ) %>"
+    )
+    $('#chat_window_<%= @user.id %>').css("display","block")
+  }
+</script>

@@ -3,6 +3,7 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  get 'messages/create'
   resources :roles
   devise_for :users
   get 'password_resets/new'
@@ -40,6 +41,7 @@ Rails.application.routes.draw do
     resources :reactions
   end
 
+  resources :messages, only: %i[new create]
   mount ActionCable.server => '/cable'
   mount Sidekiq::Web => '/sidekiq'
 end
