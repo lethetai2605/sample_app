@@ -3,7 +3,11 @@
   <p><%= message.sender.name %></p>
   <p><%= message.content %></p>
   <%= image_tag message.display_image if message.image.attached? %>
-  <%= message.document.filename %>
+  <% if message.document.attached? %>
+    <%= link_to rails_blob_path(message.document, disposition: "attachment") do %>
+      <%= message.document.filename %>
+    <% end %>
+  <% end %>
   <br>
   <span class="time_right"><%= message.created_at %></span>
 </div>
