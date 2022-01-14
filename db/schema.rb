@@ -46,8 +46,7 @@ ActiveRecord::Schema.define(version: 2022_01_07_085344) do
     t.string "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["receiver_id"], name: "index_messages_on_receiver_id"
-    t.index ["sender_id"], name: "index_messages_on_sender_id"
+    t.index ["sender_id", "receiver_id"], name: "index_messages_on_sender_id_and_receiver_id"
   end
 
   create_table "microposts", force: :cascade do |t|
