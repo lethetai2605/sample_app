@@ -38,7 +38,7 @@ gem 'rolify'
 gem 'rubyzip'
 gem 'zip-zip'
 
-gem 'sidekiq'
+gem 'sidekiq', '~> 5.2.8'
 gem 'redis'
 
 group :development, :test do
