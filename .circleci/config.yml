@@ -1,29 +1,62 @@
 version: 2.1
-
-# Define the jobs we want to run for this project
+orbs:
+  ruby: circleci/ruby@0.1.2 
+  heroku: circleci/heroku@1.2.2
+workflows:
+  heroku_deploy:
+    jobs:
+      - build
+      - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+      
 jobs:
   build:
     docker:
-      - image: cimg/ruby:2.7.4
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+      - image: circleci/ruby:2.7.4-node-browsers
+        environment:
+          PGHOST: localhost
+          PGUSER: sample_app
+          RAILS_ENV: test
+      - image: postgres:10.14
+        environment:
+          POSTGRES_USER: sample_app
+          POSTGRES_DB: sample_app_test
+          POSTGRES_PASSWORD: "2222"
+    executor: ruby/default
     steps:
       - checkout
-      - run: echo "this is the build job"
-  test:
-    docker:
-      - image: cimg/ruby:2.7.4
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
-    steps:
-      - checkout
-      - run: echo "this is the test job"
+      - run:
+          name: "Update Node.js and npm"
+          command: |
+            curl -sSL "https://nodejs.org/dist/v11.10.0/node-v11.10.0-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v11.10.0-linux-x64/bin/node
+            curl https://www.npmjs.com/install.sh | sudo bash
+      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run:
+          name: Which bundler?
+          command: bundle -v
 
-# Orchestrate our job run sequence
-workflows:
-  build_and_test:
-    jobs:
-      - build
-      - test
+      - restore_cache:
+            keys:
+              # when lock file changes, use increasingly general patterns to restore cache
+              - gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+              - gem-cache-v1-{{ arch }}-{{ .Branch }}
+              - gem-cache-v1
+
+      - run: bundle install --path vendor/bundle
+
+      - save_cache:
+          key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      - run: yarn add webpack-cli
+      - run: bundle exec rake webpacker:compile
+      - run: bundle exec rake assets:precompile
+
+      - run: bundle exec rails db:create
+      - run: bundle exec rails db:migrate
+      - run: bundle exec rubocop
+      - run: bundle exec rspec
