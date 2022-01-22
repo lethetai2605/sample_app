@@ -32,7 +32,8 @@ jobs:
       - run:
           name: "Update Node.js and npm"
           command: |
-            curl -sSL "https://nodejs.org/dist/v11.15.0/node-v11.15.0-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v11.15.0-linux-x64/bin/node | npm install npm@latest -g
+            curl -sSL "https://nodejs.org/dist/v11.15.0/node-v11.15.0-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v11.15.0-linux-x64/bin/node
+            npm install -g npm@latest
             curl https://www.npmjs.com/install.sh | sudo bash
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run:
