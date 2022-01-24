@@ -54,6 +54,7 @@ jobs:
       - run: bundle exec rails db:create
       - run: bundle exec rails db:migrate
       - run: bundle exec rspec
+      - run: bundle exec rubocop
   deploy:
     docker:
       - image: buildpack-deps:trusty
