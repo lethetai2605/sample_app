@@ -16,7 +16,7 @@ class Micropost < ApplicationRecord
                                     message: 'must be a valid image format' },
                     size: { less_than: 5.megabytes,
                             message: 'should be less than 5MB' }
-
+  scope :new_posts, -> { where("created_at BETWEEN ? AND ?", 1.day.ago.beginning_of_day, 1.day.ago.end_of_day) }
   def display_image
     image.variant(resize_to_limit: [500, 500])
   end

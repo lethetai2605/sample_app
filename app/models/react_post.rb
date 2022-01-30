@@ -7,6 +7,8 @@ class ReactPost < ApplicationRecord
   belongs_to :reaction
   belongs_to :user
 
+  scope :new_reactposts, -> { where("created_at BETWEEN ? AND ?", 1.day.ago.beginning_of_day, 1.day.ago.end_of_day) }
+
   after_create :perform_destroy_notify
   after_destroy :destroy_notification, :perform_destroy_notify
 

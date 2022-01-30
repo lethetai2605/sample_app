@@ -41,6 +41,11 @@ gem 'zip-zip'
 gem 'sidekiq', '~> 5.2.8'
 gem 'redis'
 
+gem 'vcr'
+gem 'webmock'
+
+gem 'sidekiq-scheduler'
+
 group :development, :test do
   gem 'byebug',  '11.1.3', platforms: %i[mri mingw x64_mingw]
   gem 'sqlite3', '1.4.2'

@@ -21,6 +21,7 @@ class Message < ApplicationRecord
     where(sender_id: sender_id, receiver_id: receiver_id)
       .or(Message.where(sender_id: receiver_id, receiver_id: sender_id))
   }
+  scope :new_chats, -> { where("created_at BETWEEN ? AND ?", 1.day.ago.beginning_of_day, 1.day.ago.end_of_day) }
 
   after_create_commit {
     MessageBroadcastJob.perform_later(self)

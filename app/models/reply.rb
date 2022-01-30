@@ -11,6 +11,7 @@ class Reply < ApplicationRecord
   validates :content, presence: true, length: { maximum: 140 }
 
   default_scope -> { order(created_at: :asc) }
+  scope :new_replies, -> { where("created_at BETWEEN ? AND ?", 1.day.ago.beginning_of_day, 1.day.ago.end_of_day) }
 
   after_destroy :destroy_notification
   after_commit {
