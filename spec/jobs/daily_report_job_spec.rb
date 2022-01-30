@@ -41,6 +41,8 @@ RSpec.describe DailyReportJob, type: :job do
     VCR.use_cassette "send message", record: :all do
       response = Net::HTTP.post_form(@uri, @params)
       raise "Error code #{response.code}" if response.code != "200"
+    rescue StandardError => e
+      expect(e.message).to eq("Error code #{response.code}")
     end
   end
 end
