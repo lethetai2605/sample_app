@@ -38,7 +38,7 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   has_secure_password
   # validates :password, presence: true, length: { minimum: 3 }
-  scope :new_users, -> { where("created_at BETWEEN ? AND ?", 1.day.ago.beginning_of_day, 1.day.ago.end_of_day) }
+  scope :new_users, -> { where(created_at: 1.day.ago.beginning_of_day..1.day.ago.end_of_day) }
   class << self
     def digest(string)
       cost = if ActiveModel::SecurePassword.min_cost
