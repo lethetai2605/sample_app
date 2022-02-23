@@ -23,7 +23,10 @@ Rails.application.routes.draw do
   get '/users/:id/export', to: 'users#export', as: 'export'
   patch '/users/read/:id', to: 'users#read_notification', as: 'users_read'
   patch '/users/read/micropost/:id', to: 'microposts#read_post', as: 'users_read_post'
-
+  post '/users/:id/report', to: 'reports#create', as: 'report'
+  get 'list_report', to: 'reports#index', as: 'list_report'
+  patch 'list_report/block/:block_id', to: 'reports#block', as: 'block_user'
+  get 'list_report/search/', to: 'reports#search', as: 'report_search'
   resources :users do
     member do
       get :following, :followers

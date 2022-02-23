@@ -1,0 +1,51 @@
+<h1>List Reports</h1>
+<%= form_tag report_search_path, :method => "get" do %>
+  <%= label_tag(:reported_id, "Reported User?") %>
+  <%= number_field_tag :reported_id %>
+  <%= label_tag(:reporter_id, "By User?") %>
+  <%= number_field_tag :reporter_id %>
+  <%= submit_tag("Search", :name => nil) %>
+<% end %>
+<br>
+<table border="2">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Reported User</th>
+      <th>By User</th>
+      <th>Reason</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @reports.each do |report| %>
+      <tr>
+        <td><%= report.id %></td>
+        <td><%= link_to report.reported.name, user_path(report.reported.id) %></td>
+        <td><%= link_to report.reporter.name, user_path(report.reporter.id) %></td>
+        <td><%= report.reason %></td>
+        <td>
+          <a id="yes_<%= report.id %>" href="<%= block_user_path(report.reported.id) %>" onclick="block_user(<%= report.reported.id %>)" >
+          Yes</b>
+          </a>
+        </td>
+        <td><a onclick="clear_yes_button()">Reject</a></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<script type="text/javascript">
+  function block_user(id) {
+    <% if current_user.present? %>
+      $.ajax({
+        type: "PATCH",
+        url: "<%= block_user_path(22) %>",
+      })
+    <% end %>
+  }
+  function clear_yes_button() {
+    document.getElementById("yes").innerHTML = " ";
+  }
+</script>

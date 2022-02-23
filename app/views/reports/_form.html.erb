@@ -1,0 +1,10 @@
+<%= form_with(url: report_path, model: Report.new, remote: true, local: false) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="field">
+    <%= f.text_area :reason, placeholder: "send report" %>
+    <%= f.hidden_field :reporter_id, value: reporter_id %>
+    <%= f.hidden_field :reported_id, value: reported_id %>
+  </div>
+  <%= f.submit "Ok", class: "btn btn-primary", id: "btn_submit" %>
+  <%= button_tag "Cancel", :type => 'reset' %>
+<% end %>

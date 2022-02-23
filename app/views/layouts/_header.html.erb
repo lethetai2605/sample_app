@@ -24,6 +24,7 @@ id="bs-example-navbar-collapse-1">
 <% if user_signed_in? %>
 <% if can? :destroy, User %>
 <li><%= link_to "Users", users_path %></li>
+<li><%= link_to "List Report", list_report_path %></li>
 <% end %>
 
 <li class="dropdown">
