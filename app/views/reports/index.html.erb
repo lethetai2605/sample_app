@@ -27,25 +27,17 @@
         <td><%= link_to report.reporter.name, user_path(report.reporter.id) %></td>
         <td><%= report.reason %></td>
         <td>
-          <a id="yes_<%= report.id %>" href="<%= block_user_path(report.reported.id) %>" onclick="block_user(<%= report.reported.id %>)" >
-          Yes</b>
-          </a>
+          <% if report.is_read == false %>
+          <a id="yes_<%= report.id %>" href="<%= block_user_path(report.reported.id) %>" onclick="block_user(<%= report.reported.id %>)" >Yes</a>
+          <% end %>
         </td>
-        <td><a onclick="clear_yes_button()">Reject</a></td>
+        <td><a href="<%= read_report_path(report.id) %>" id="<%= report.id %>" onclick="clear_yes_button(this.id)">Reject</a></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 <script type="text/javascript">
-  function block_user(id) {
-    <% if current_user.present? %>
-      $.ajax({
-        type: "PATCH",
-        url: "<%= block_user_path(22) %>",
-      })
-    <% end %>
-  }
-  function clear_yes_button() {
-    document.getElementById("yes").innerHTML = " ";
+  function clear_yes_button(clicked_id) {
+    document.getElementById("yes_" + clicked_id).innerHTML = " ";
   }
 </script>

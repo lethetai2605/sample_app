@@ -13,14 +13,24 @@ class ReportsController < ApplicationController
   end
 
   def block
-    @user = User.find(params[:block_id])
-    ReportMailer.block_notification(params[:block_id]).deliver_now
+    @user = User.find(params[:id])
+    lock_time = 15.days.from_now
+    puts lock_time
+    @user.update(lock_time: lock_time)
+    ReportMailer.block_notification(@user).deliver_now
+    redirect_to request.referrer
   end
 
   def search
-    @result = Report.where(reported_id: params[:reported_id], reporter_id: params[:reporter_id])
+    @reports = Report.where(reported_id: params[:reported_id], reporter_id: params[:reporter_id])
+    render 'index'
   end
 
+  def read_report
+    @reported = Report.find(params[:id])
+    @reported.update(is_read: true)
+    redirect_to request.referrer
+  end
   private
 
   def report_params

@@ -43,6 +43,7 @@
         sender_id: sender_id, receiver_id: receiver_id
       ) %>"
     )
+    $('#chat_window_<%= @user.id %>').css("display","block")
   }
   function openFormReport() {
     <%= reporter_id = current_user.id %>

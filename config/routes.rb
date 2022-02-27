@@ -25,7 +25,8 @@ Rails.application.routes.draw do
   patch '/users/read/micropost/:id', to: 'microposts#read_post', as: 'users_read_post'
   post '/users/:id/report', to: 'reports#create', as: 'report'
   get 'list_report', to: 'reports#index', as: 'list_report'
-  patch 'list_report/block/:block_id', to: 'reports#block', as: 'block_user'
+  get 'list_report/:id/block', to: 'reports#block', as: 'block_user'
+  get '/list_report/:id/read', to: 'reports#read_report', as: 'read_report'
   get 'list_report/search/', to: 'reports#search', as: 'report_search'
   resources :users do
     member do

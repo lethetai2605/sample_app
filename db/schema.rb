@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_23_014324) do
+ActiveRecord::Schema.define(version: 2022_02_27_134550) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(version: 2022_02_23_014324) do
     t.string "reason"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_read", default: false
     t.index ["reported_id", "reporter_id"], name: "index_reports_on_reported_id_and_reporter_id"
   end
 
@@ -139,6 +140,7 @@ ActiveRecord::Schema.define(version: 2022_02_23_014324) do
     t.datetime "reset_sent_at"
     t.integer "role_id"
     t.boolean "read_notification", default: false
+    t.datetime "lock_time"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
   end
